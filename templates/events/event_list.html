@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Eventos{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0">Próximos eventos</h1>
+    <a href="{% url 'event_calendar' %}" class="btn btn-outline-secondary btn-sm">Ver calendario</a>
+</div>
+
+<form method="get" class="row g-2 mb-4">
+    <div class="col-auto">
+        <select name="category" class="form-select" onchange="this.form.submit()">
+            <option value="">Todas las categorías</option>
+            {% for category in categories %}
+                <option value="{{ category.pk }}" {% if selected_category|stringformat:"s" == category.pk|stringformat:"s" %}selected{% endif %}>{{ category.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</form>
+
+<div class="row">
+    {% for event in events %}
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ event.title }}</h5>
+                    <p class="card-text text-muted">
+                        {{ event.start_datetime|date:"d/m/Y H:i" }}
+                        {% if event.location %} — {{ event.location }}{% endif %}
+                    </p>
+                    <p class="card-text">{{ event.description|truncatewords:20 }}</p>
+                    <p class="card-text">
+                        <small class="text-muted">
+                            {% if event.is_full %}
+                                <span class="badge bg-danger">Aforo completo</span>
+                            {% else %}
+                                {{ event.spots_left }} plazas libres de {{ event.capacity }}
+                            {% endif %}
+                        </small>
+                    </p>
+                    <a href="{% url 'event_detail' event.pk %}" class="btn btn-outline-primary btn-sm">Ver detalle</a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p>No hay eventos próximos.</p>
+    {% endfor %}
+</div>
+{% endblock %}

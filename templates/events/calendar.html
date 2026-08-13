@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Calendario{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <a href="?year={{ prev_year }}&month={{ prev_month }}" class="btn btn-outline-secondary btn-sm">&laquo; Anterior</a>
+    <h1 class="h4 mb-0 text-capitalize">{{ month_date|date:"F Y" }}</h1>
+    <a href="?year={{ next_year }}&month={{ next_month }}" class="btn btn-outline-secondary btn-sm">Siguiente &raquo;</a>
+</div>
+
+<table class="table table-bordered calendar-table">
+    <thead>
+        <tr>
+            <th>Lun</th><th>Mar</th><th>Mié</th><th>Jue</th><th>Vie</th><th>Sáb</th><th>Dom</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for week in weeks %}
+        <tr>
+            {% for day in week %}
+                <td class="{% if not day.in_month %}text-muted{% endif %} {% if day.is_today %}table-primary{% endif %}">
+                    <div class="calendar-day-number">{{ day.date.day }}</div>
+                    {% for event in day.events %}
+                        <a href="{% url 'event_detail' event.pk %}" class="calendar-event" title="{{ event.title }}">{{ event.title }}</a>
+                    {% endfor %}
+                </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

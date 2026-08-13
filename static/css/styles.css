@@ -1,0 +1,35 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    margin-bottom: 1rem;
+}
+
+.calendar-table td {
+    height: 100px;
+    width: 14.28%;
+    vertical-align: top;
+}
+
+.calendar-table td.text-muted {
+    background-color: #f1f1f1;
+}
+
+.calendar-day-number {
+    font-weight: bold;
+}
+
+.calendar-event {
+    display: block;
+    font-size: 0.75rem;
+    background-color: #0d6efd;
+    color: #fff;
+    border-radius: 3px;
+    padding: 1px 4px;
+    margin-top: 2px;
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

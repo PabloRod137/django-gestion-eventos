@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Mis inscripciones{% endblock %}
+{% block content %}
+<h1 class="h3 mb-4">Mis inscripciones</h1>
+{% if registrations %}
+<table class="table">
+    <thead><tr><th>Evento</th><th>Fecha</th><th>Lugar</th><th></th></tr></thead>
+    <tbody>
+    {% for reg in registrations %}
+        <tr>
+            <td><a href="{% url 'event_detail' reg.event.pk %}">{{ reg.event.title }}</a></td>
+            <td>{{ reg.event.start_datetime|date:"d/m/Y H:i" }}</td>
+            <td>{{ reg.event.location }}</td>
+            <td>
+                <form method="post" action="{% url 'event_unregister' reg.event.pk %}" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-danger btn-sm">Cancelar</button>
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+    <p>No estás apuntado a ningún evento. <a href="{% url 'event_list' %}">Explora los eventos</a>.</p>
+{% endif %}
+{% endblock %}
