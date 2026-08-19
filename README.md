@@ -80,6 +80,14 @@ python manage.py runserver
 
 Abre **http://127.0.0.1:8000/** en el navegador. Cuando alguien se apunte a un evento, verás el email de confirmación impreso directamente en esta misma terminal (backend de consola).
 
+### ✅ Tests automatizados
+
+El control de aforo (plazas libres, rechazo al llenarse, liberar hueco al cancelar) tiene tests:
+
+```bash
+python manage.py test
+```
+
 ## 🔍 Cómo probarlo rápido
 
 1. Regístrate en `/registro/`.
