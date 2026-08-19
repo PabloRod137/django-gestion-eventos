@@ -1,3 +1,4 @@
+{# Plantilla base: navbar + zona de mensajes flash, comunes a toda la web. #}
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
@@ -25,6 +26,9 @@
                     {% if user.is_authenticated %}
                         <li class="nav-item"><span class="nav-link">Hola, {{ user.username }}</span></li>
                         <li class="nav-item">
+                            {# Logout con formulario POST: Django exige POST para cerrar sesión #}
+                            {# (un <a href> con GET podría disparase sin querer, por ejemplo    #}
+                            {# si un bot rastrea la web y sigue ese enlace).                    #}
                             <form method="post" action="{% url 'logout' %}" class="d-inline">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-link nav-link">Salir</button>

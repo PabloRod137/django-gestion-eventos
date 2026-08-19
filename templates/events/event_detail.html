@@ -1,3 +1,6 @@
+{# Ficha de un evento: aforo, botón de apuntarse/cancelar según el estado #}
+{# de la inscripción del usuario actual (ver EventDetailView.get_context_data #}
+{# en events/views.py, que calcula "registration" para esta plantilla).  #}
 {% extends 'base.html' %}
 {% block title %}{{ event.title }}{% endblock %}
 {% block content %}
@@ -24,6 +27,9 @@
             <button type="submit" class="btn btn-outline-danger">Cancelar inscripción</button>
         </form>
     {% else %}
+        {# El botón se desactiva en el navegador si no hay plazas, pero eso   #}
+        {# es solo comodidad visual: la comprobación de verdad (la que no se #}
+        {# puede saltar) está en el servidor, en la vista event_register.    #}
         <form method="post" action="{% url 'event_register' event.pk %}" class="d-inline">
             {% csrf_token %}
             <button type="submit" class="btn btn-primary" {% if event.is_full %}disabled{% endif %}>Apuntarme</button>
