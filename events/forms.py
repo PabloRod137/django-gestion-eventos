@@ -50,7 +50,7 @@ class EventForm(forms.ModelForm):
         # coincide con los formatos de fecha por defecto de Django.
         self.fields['start_datetime'].input_formats = ['%Y-%m-%dT%H:%M']
         self.fields['end_datetime'].input_formats = ['%Y-%m-%dT%H:%M']
-        for name, field in self.fields.items():
+        for field in self.fields.values():
             css_class = 'form-select' if isinstance(field.widget, forms.Select) else 'form-control'
             field.widget.attrs['class'] = css_class
 
